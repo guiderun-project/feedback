@@ -32,7 +32,7 @@
 
 **Interfaces:**
 - Produces: `handleSubmission(payload)` — 순수 함수. `payload: { feedback?: string, website?: string }` → `{ action: 'append', row: [Date, string] }` | `{ action: 'ignore' }` | `{ action: 'error', message: string }`. `website`는 honeypot 필드(채워져 있으면 무시).
-- Produces (계약, Task 3에서 소비): Apps Script 웹앱은 POST 본문으로 JSON `{ feedback: string, website: string }`을 받고, 응답으로 JSON `{ status: 'ok' | 'ignore' | 'error' }`를 반환한다.
+- Produces (계약, Task 3에서 소비): Apps Script 웹앱은 POST 본문으로 JSON `{ feedback: string, website: string }`을 받고, 응답으로 JSON `{ status: 'ok' | 'error' }`를 반환한다. Honeypot에 걸려 무시된 제출도 정상 제출과 동일하게 `'ok'`를 반환한다 — 스팸 탐지 여부를 응답으로 구분해서 노출하지 않기 위한 의도적 설계.
 - `doPost(e)`는 `SpreadsheetApp`을 사용하므로 Node에서 테스트하지 않는다. 시트 탭 이름은 `"Feedback"`으로 고정(`getSheetByName('Feedback')`).
 
 - [ ] **Step 1: 실패하는 테스트 작성**
@@ -331,7 +331,7 @@ git commit -m "feat: add feedback page markup and styles"
 - Test: `app.test.js`
 
 **Interfaces:**
-- Consumes: Task 2의 DOM 요소 id들(`feedback-form`, `feedback`, `website`, `submit-button`, `result-message`), Task 1의 응답 계약(`{ status: 'ok' | 'ignore' | 'error' }`).
+- Consumes: Task 2의 DOM 요소 id들(`feedback-form`, `feedback`, `website`, `submit-button`, `result-message`), Task 1의 응답 계약(`{ status: 'ok' | 'error' }`). Honeypot에 걸려 무시된 제출도 `'ok'`로 응답하므로, 프론트엔드는 이를 정상 제출과 동일하게 처리한다(구분 로직 불필요).
 - Produces: `isValidFeedback(text)` — 순수 함수, `string` → `boolean` (trim 후 길이 0 초과면 true).
 
 - [ ] **Step 1: 실패하는 테스트 작성**
