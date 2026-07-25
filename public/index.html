@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>가이드런 프로젝트 - 의견함</title>
+  <link rel="icon" href="/service_logo_black.png">
+  <link rel="apple-touch-icon" href="/service_logo_black.png">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="card">
+    <header class="brand">
+      <img src="/service_logo_black.png" alt="" class="brand-icon">
+      <span class="brand-name">가이드런 프로젝트</span>
+    </header>
+
+    <h1>훈련 프로그램 의견함</h1>
+    <p class="guide">
+      자유롭게 의견을 남겨주세요.<br>
+      익명으로 제출되며, 어떤 개인정보도 수집하지 않습니다.
+    </p>
+
+    <form id="feedback-form">
+      <textarea
+        id="feedback"
+        name="feedback"
+        rows="6"
+        placeholder="의견을 입력해주세요"
+        required
+      ></textarea>
+
+      <div class="visually-hidden">
+        <label for="website">웹사이트</label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <button type="submit" id="submit-button">제출하기</button>
+    </form>
+
+    <p id="result-message" class="result-message" hidden aria-live="polite" role="status"></p>
+  </main>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>
