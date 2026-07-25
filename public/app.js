@@ -1,4 +1,4 @@
-var ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbzKHY3oOm9M-4UxE1USJIlC2lL44NMvRCq2is7NHHOIbAhAyu7rAX1AJ6ol57FHqfo/exec';
+var ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbwFmP9NH1U9qaM_AQE6UE3fNoFW6flBDFTbrpTwhzfH_UdIvK-TEu1Tk08CITWI9Fk/exec';
 
 function isValidFeedback(text) {
   return typeof text === 'string' && text.trim().length > 0;
