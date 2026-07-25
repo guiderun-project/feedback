@@ -489,16 +489,16 @@ git commit -m "chore: add robots.txt and netlify deploy config"
 
 - [ ] **Step 3: 프론트엔드에 실제 엔드포인트 반영**
 
-`app.js`의 `ENDPOINT_URL` 값을 Step 2에서 복사한 실제 URL로 교체.
+`public/app.js`의 `ENDPOINT_URL` 값을 Step 2에서 복사한 실제 URL로 교체.
 
 ```bash
-git add app.js
+git add public/app.js
 git commit -m "chore: point frontend at deployed Apps Script endpoint"
 ```
 
 - [ ] **Step 4: Netlify 배포**
 
-Netlify에서 이 리포지토리를 새 사이트로 연결(또는 기존 계정의 CLI/드래그 배포 사용) → 빌드 명령 없음, publish directory `.` 확인 → 배포 후 기본 `*.netlify.app` URL로 정상 동작 확인.
+Netlify에서 이 리포지토리를 새 사이트로 연결(또는 기존 계정의 CLI/드래그 배포 사용) → 빌드 명령 없음, publish directory는 `netlify.toml`에 지정된 `public` 그대로 사용(최종 리뷰에서 `apps-script/`·`docs/`·테스트 파일이 공개 노출되지 않도록 `public/` 하위로 범위를 좁혔음) → 배포 후 기본 `*.netlify.app` URL로 정상 동작 확인.
 
 - [ ] **Step 5: 커스텀 도메인 연결**
 
@@ -511,6 +511,7 @@ Netlify 사이트 설정 → Domain management → `feedback.guiderun.org` 추�
 - [ ] **Step 7: 수동 QA 체크리스트**
 
 - [ ] 정상 텍스트 제출 → Google Sheet `Feedback` 탭에 `[날짜, 내용]` 행이 정확히 추가되는지 확인
+- [ ] 위 제출 시 브라우저 화면에도 "의견이 제출되었습니다" 완료 메시지가 실제로 뜨는지 확인 (시트에는 기록되지만 Apps Script 응답의 CORS 헤더 문제로 화면에는 실패 메시지가 뜨는 경우가 있을 수 있음 — 액세스 권한이 "모든 사용자"로 정확히 설정됐는지 재확인)
 - [ ] textarea를 비워둔 채 제출 → 클라이언트에서 제출이 막히는지 확인 (`required` 속성)
 - [ ] 브라우저 devtools로 honeypot(`#website`) 필드에 값을 채운 뒤 제출 → 시트에 행이 추가되지 않는지 확인
 - [ ] 모바일 폭 화면에서 레이아웃 확인
