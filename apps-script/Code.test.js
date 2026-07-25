@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { handleSubmission } = require('./Code.js');
+const { handleSubmission, shouldRateLimit } = require('./Code.js');
 
 function testAppendsValidFeedback() {
   const result = handleSubmission({ feedback: '  강의가 유익했어요  ', website: '' });
@@ -23,8 +23,20 @@ function testRejectsMissingFeedback() {
   assert.strictEqual(result.action, 'error');
 }
 
+function testAllowsUnderLimit() {
+  assert.strictEqual(shouldRateLimit(0), false);
+  assert.strictEqual(shouldRateLimit(19), false);
+}
+
+function testBlocksAtLimit() {
+  assert.strictEqual(shouldRateLimit(20), true);
+  assert.strictEqual(shouldRateLimit(21), true);
+}
+
 testAppendsValidFeedback();
 testIgnoresHoneypotFill();
 testRejectsEmptyFeedback();
 testRejectsMissingFeedback();
+testAllowsUnderLimit();
+testBlocksAtLimit();
 console.log('Code.test.js: all tests passed');

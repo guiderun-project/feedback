@@ -1,3 +1,22 @@
+var RATE_LIMIT_MAX = 20;
+var RATE_LIMIT_WINDOW_SECONDS = 60;
+
+function shouldRateLimit(count) {
+  return count >= RATE_LIMIT_MAX;
+}
+
+function isRateLimited() {
+  var cache = CacheService.getScriptCache();
+  var bucket = Math.floor(new Date().getTime() / (RATE_LIMIT_WINDOW_SECONDS * 1000));
+  var key = 'rl_' + bucket;
+  var count = Number(cache.get(key) || '0');
+  if (shouldRateLimit(count)) {
+    return true;
+  }
+  cache.put(key, String(count + 1), RATE_LIMIT_WINDOW_SECONDS + 10);
+  return false;
+}
+
 function handleSubmission(payload) {
   var feedback = payload && typeof payload.feedback === 'string' ? payload.feedback.trim() : '';
   var honeypot = payload && typeof payload.website === 'string' ? payload.website.trim() : '';
@@ -12,6 +31,12 @@ function handleSubmission(payload) {
 }
 
 function doPost(e) {
+  if (isRateLimited()) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: 'error' }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
   var payload = JSON.parse(e.postData.contents);
   var decision = handleSubmission(payload);
 
@@ -27,5 +52,5 @@ function doPost(e) {
 }
 
 if (typeof module !== 'undefined') {
-  module.exports = { handleSubmission };
+  module.exports = { handleSubmission, shouldRateLimit };
 }
