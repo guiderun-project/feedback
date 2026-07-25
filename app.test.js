@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { isValidFeedback } = require('./app.js');
+const { isValidFeedback } = require('./public/app.js');
 
 assert.strictEqual(isValidFeedback('좋은 프로그램이었어요'), true);
 assert.strictEqual(isValidFeedback('   '), false);
