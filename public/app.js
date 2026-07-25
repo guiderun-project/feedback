@@ -1,4 +1,4 @@
-var ENDPOINT_URL = 'REPLACE_WITH_APPS_SCRIPT_WEB_APP_URL';
+var ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbzKHY3oOm9M-4UxE1USJIlC2lL44NMvRCq2is7NHHOIbAhAyu7rAX1AJ6ol57FHqfo/exec';
 
 function isValidFeedback(text) {
   return typeof text === 'string' && text.trim().length > 0;
